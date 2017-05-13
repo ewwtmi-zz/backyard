@@ -1,0 +1,25 @@
+{
+	"strict": true,
+	"indent": 2,
+	"maxlen" : 80,
+	"curly": true,
+	"eqeqeq": true,
+	"unused": true,
+	"loopfunc": true,
+
+	// global var settings
+	"undef": true,
+	"browser" : true,
+	"devel" : true,
+	"debug"    : true,
+	"globals": {
+		"_": false,
+		"jQuery": true,
+		"$" : true,
+		"Backbone": false
+	},
+
+	//Relaxing Options
+	"eqnull": true,
+	"expr": true
+}
