@@ -1,6 +1,6 @@
 // http://csscomb.com/config
 
-// = gulp-cssbeautity
+// = gulp-cssbeautity ( + font-size custom )
 {
 	"remove-empty-rulesets": true,
 	"always-semicolon": true,
@@ -25,5 +25,9 @@
 	"strip-spaces": true,
 	"tab-size": true,
 	"unitless-zero": true,
-	"vendor-prefix-align": true
+	"vendor-prefix-align": true,
+	"sort-order-fallback": "abc",
+	"sort-order": [
+		"font-size"
+	]
 }
