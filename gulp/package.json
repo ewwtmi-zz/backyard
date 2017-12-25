@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "xxxxxxxx",
   "scripts": {
-    "start": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build",
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
     "url": ""
   },
-  "author": "ewwt",
+  "author": "mi-local",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.14.0",
+    "browser-sync": "^2.19.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cached": "^1.1.0",
@@ -28,15 +28,15 @@
     "gulp-iconfont": "^1.0.0",
     "gulp-jshint": "^2.0.1",
     "gulp-kss": "0.0.2",
-    "gulp-load-plugins": "^1.2.4",
-    "gulp-notify": "^2.2.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-sass": "^2.3.2",
+    "gulp-sass": "^3.1.0",
     "gulp-svgmin": "^1.2.3",
     "gulp-uglify": "^2.0.0",
-    "jshint": "^2.9.3",
+    "gulp-pug": "^3.3.0",
     "lodash": "^4.15.0"
   }
 }
