@@ -16,16 +16,16 @@ plugins = require('gulp-load-plugins')({
 });
 
 var browserSync = require('browser-sync').create();
-var crLfReplace = require('gulp-cr-lf-replace');
 
 
 // -----------------------------------------------
 // Directory settings
 // -----------------------------------------------
 var dir_root = '../';
-var dir_sass = '../_dev/sass';
 var dir_css = '../css';
 var dir_js = '../js';
+var dir_sass = '../_dev/sass';
+var dir_pug = '../_dev/pug';
 
 
 // -----------------------------------------------
@@ -57,6 +57,7 @@ gulp.task('sass', function(){
 	}))
 
 	.pipe(plugins.sass({outputStyle: 'expanded'}))
+	// .pipe(plugins.sass({outputStyle: 'nested'}))
 
 	.pipe(plugins.autoprefixer({
 		browsers: ['last 2 version', 'ie >= 7', 'iOS >= 7', 'Android >= 4'],
@@ -69,7 +70,8 @@ gulp.task('sass', function(){
 	// 	autosemicolon: true
 	// }))
 
-	.pipe(plugins.csscomb())
+	// .pipe(plugins.csscomb())
+	.pipe(plugins.csscomb('.csscomb.json'))
 
 	.pipe(gulp.dest(dir_css))
 	.pipe(browserSync.reload({stream:true}));
@@ -77,10 +79,31 @@ gulp.task('sass', function(){
 
 
 // -----------------------------------------------
+// pug : "gulp pug"
+// -----------------------------------------------
+gulp.task('pug', () => {
+	return gulp.src([
+		dir_pug + '/**/*.pug',
+		'!' + dir_pug + '/**/_*.pug'
+	])
+
+	.pipe(plugins.plumber({
+		errorHandler: plugins.notify.onError('<%= error.message %>')
+	}))
+
+	.pipe(plugins.pug({
+		pretty: true
+	}))
+
+	.pipe(gulp.dest(dir_root));
+});
+
+
+// -----------------------------------------------
 // htmlhint : "gulp htmlhint"
 // -----------------------------------------------
 gulp.task('htmlhint', function() {
-	console.log('--------- htmlhint task ----------');
+	console.log('--------- HTML lint ----------');
 
 	gulp.src(dir_root + 'products/index.html')
 		.pipe(plugins.htmlhint())
@@ -92,7 +115,7 @@ gulp.task('htmlhint', function() {
 // csslint : "gulp csslint"
 // -----------------------------------------------
 gulp.task('csslint', function() {
-	console.log('--------- csslint task ----------');
+	console.log('--------- CSS lint ----------');
 
 	gulp.src([
 		dir_css + '/products/style.css',
@@ -109,7 +132,7 @@ gulp.task('csslint', function() {
 // jshint : "gulp jshint"
 // -----------------------------------------------
 gulp.task('jshint', function() {
-	console.log('--------- jshint task ----------');
+	console.log('--------- JS lint ----------');
 
 	return gulp.src([
 		dir_js + '/products/function.js',
@@ -152,7 +175,7 @@ gulp.task('html', function(){
 // styleguide : "gulp kss"
 // -----------------------------------------------
 gulp.task('kss', function() {
-	console.log('--------- kss task ----------');
+	console.log('--------- Styleguide ----------');
 
 	gulp.src(dir_sass + '/**/*.scss')
 	.pipe(plugins.kss())
@@ -166,7 +189,7 @@ gulp.task('kss', function() {
 // cssmin : "gulp cssmin"
 // -----------------------------------------------
 gulp.task('cssmin', function() {
-	console.log('--------- cssmin task ----------');
+	console.log('--------- CSS minify ----------');
 
 	gulp.src([
 		dir_css + '/style.css',
@@ -183,10 +206,10 @@ gulp.task('cssmin', function() {
 
 
 // -----------------------------------------------
-// minjs : "gulp minjs"
+// minjs : "gulp jsmin"
 // -----------------------------------------------
-gulp.task('minjs', function() {
-	console.log('--------- minjs task ----------');
+gulp.task('jsmin', function() {
+	console.log('--------- JS minify ----------');
 
 	gulp.src([
 		dir_js + '/products/function.js',
@@ -206,7 +229,7 @@ gulp.task('minjs', function() {
 // iconfont : "gulp font"
 // -----------------------------------------------
 gulp.task('font', function() {
-	console.log('--------- font task ----------');
+	console.log('--------- Iconfont ----------');
 
 	var fontName = 'myicon';
 
@@ -243,12 +266,22 @@ gulp.task('watch', function(){
 	// HTML
 	gulp.watch([dir_root + 'products/index.html'], ['html']);
 
+	// pug
+	// gulp.watch([dir_pug + '/**/*.pug'], ['pug']);
+
 	// Sass
 	gulp.watch([dir_sass + '/**/*.scss'], ['sass']);
 
 	// gulp.watch([dir_root + '/**/*.html'], ['html', 'htmlhint']);
 	// gulp.watch([dir_css + '/**/*.css'], ['html', 'csslint']);
 	// gulp.watch([dir_js + '/**/*.js'], ['html', 'jshint']);
+
+	// minify
+	// gulp.watch([dir_css + '/company/style.css'], ['cssmin']);
+	// gulp.watch([dir_js + '/function.js'], ['jsmin']);
+
+	// Styleguide
+	// gulp.watch([dir_sass + '/**/*.scss'], ['kss']);
 });
 
 
